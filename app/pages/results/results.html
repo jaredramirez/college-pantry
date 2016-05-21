@@ -1,0 +1,16 @@
+<ion-navbar *navbar>
+    <ion-title>
+        Results
+    </ion-title>
+</ion-navbar>
+
+<ion-content class="results">
+    <ion-card *ngFor="let repo of foundRepos" (click)="goToDetails(repo)">
+        <ion-card-header>
+            {{ repo.name }}
+        </ion-card-header>
+        <ion-card-content>
+            {{ repo.description }}
+        </ion-card-content>
+    </ion-card>
+</ion-content>
