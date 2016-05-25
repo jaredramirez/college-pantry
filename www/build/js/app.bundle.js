@@ -44,36 +44,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var ionic_angular_1 = require('ionic-angular');
-var github_1 = require('../../services/github');
 var DetailsPage = (function () {
-    function DetailsPage(github, nav, navParams) {
-        var _this = this;
-        this.github = github;
-        this.nav = nav;
+    function DetailsPage(navParams) {
         this.navParams = navParams;
-        this.readme = '';
-        this.repo = navParams.get('repo');
-        this.github.getDetails(this.repo).subscribe(function (data) { return _this.readme = data.text(); }, function (err) {
-            if (err.status == 404) {
-                _this.readme = 'This repo does not have a README. :(';
-            }
-            else {
-                console.error(err);
-            }
-        }, function () { return console.log('getDetails completed'); });
+        this.recipe = navParams.get('recipe');
     }
     DetailsPage = __decorate([
         ionic_angular_1.Page({
-            templateUrl: 'build/pages/details/details.html',
-            providers: [github_1.GitHubService]
+            templateUrl: 'build/pages/details/details.html'
         }), 
-        __metadata('design:paramtypes', [github_1.GitHubService, ionic_angular_1.NavController, ionic_angular_1.NavParams])
+        __metadata('design:paramtypes', [ionic_angular_1.NavParams])
     ], DetailsPage);
     return DetailsPage;
 }());
 exports.DetailsPage = DetailsPage;
 
-},{"../../services/github":5,"ionic-angular":387}],3:[function(require,module,exports){
+},{"ionic-angular":387}],3:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -86,27 +72,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var ionic_angular_1 = require('ionic-angular');
 var results_1 = require('../results/results');
-var github_1 = require('../../services/github');
 var HomePage = (function () {
-    function HomePage(github, nav) {
-        this.github = github;
+    function HomePage(nav) {
         this.nav = nav;
+        this.ingredients = [{ ingredient: '' }];
     }
+    HomePage.prototype.addNewIngredient = function () {
+        this.ingredients.push({ ingredient: '' });
+    };
     HomePage.prototype.goToResults = function () {
-        this.nav.push(results_1.ResultsPage, { username: this.username });
+        if (this.ingredients.length > 0) {
+            this.nav.push(results_1.ResultsPage, { ingredients: this.ingredients });
+        }
     };
     HomePage = __decorate([
         ionic_angular_1.Page({
-            templateUrl: 'build/pages/home/home.html',
-            providers: [github_1.GitHubService]
+            templateUrl: 'build/pages/home/home.html'
         }), 
-        __metadata('design:paramtypes', [github_1.GitHubService, ionic_angular_1.NavController])
+        __metadata('design:paramtypes', [ionic_angular_1.NavController])
     ], HomePage);
     return HomePage;
 }());
 exports.HomePage = HomePage;
 
-},{"../../services/github":5,"../results/results":4,"ionic-angular":387}],4:[function(require,module,exports){
+},{"../results/results":4,"ionic-angular":387}],4:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -119,33 +108,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var ionic_angular_1 = require('ionic-angular');
 var details_1 = require('../details/details');
-var github_1 = require('../../services/github');
+var food2fork_1 = require('../../services/food2fork');
 var ResultsPage = (function () {
-    function ResultsPage(github, nav, navParams) {
+    function ResultsPage(food2fork, nav, navParams) {
         var _this = this;
-        this.github = github;
+        this.food2fork = food2fork;
         this.nav = nav;
         this.navParams = navParams;
-        this.username = navParams.get('username');
-        this.github.getRepos(this.username).subscribe(function (data) {
-            _this.foundRepos = data.json();
-        }, function (err) { return console.error(err); }, function () { return console.log('getRepos completed'); });
+        this.ingredients = navParams.get('ingredients');
+        this.food2fork.findRecipes(this.ingredients).subscribe(function (data) {
+            var object = data.json();
+            _this.foundRecipes = object.recipes;
+        }, function (err) { return console.error(err); }, function () { return null; });
     }
-    ResultsPage.prototype.goToDetails = function (repo) {
-        this.nav.push(details_1.DetailsPage, { repo: repo });
+    ResultsPage.prototype.goToDetails = function (recipe) {
+        this.nav.push(details_1.DetailsPage, { recipe: recipe });
     };
     ResultsPage = __decorate([
         ionic_angular_1.Page({
             templateUrl: 'build/pages/results/results.html',
-            providers: [github_1.GitHubService]
+            providers: [food2fork_1.Food2ForkService]
         }), 
-        __metadata('design:paramtypes', [github_1.GitHubService, ionic_angular_1.NavController, ionic_angular_1.NavParams])
+        __metadata('design:paramtypes', [food2fork_1.Food2ForkService, ionic_angular_1.NavController, ionic_angular_1.NavParams])
     ], ResultsPage);
     return ResultsPage;
 }());
 exports.ResultsPage = ResultsPage;
 
-},{"../../services/github":5,"../details/details":2,"ionic-angular":387}],5:[function(require,module,exports){
+},{"../../services/food2fork":5,"../details/details":2,"ionic-angular":387}],5:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -158,26 +148,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-var GitHubService = (function () {
-    function GitHubService(http) {
-        this.http = http;
+var getIngredientList = function (ingredients) {
+    var list = '';
+    for (var i = 0; i < ingredients.length; i++) {
+        list += ingredients[i].ingredient;
+        if (i + 1 < ingredients.length) {
+            list += ',';
+        }
     }
-    GitHubService.prototype.getRepos = function (username) {
-        var repos = this.http.get("https://api.github.com/users/" + username + "/repos");
-        return repos;
+    return list;
+};
+var Food2ForkService = (function () {
+    function Food2ForkService(http) {
+        this.http = http;
+        this.key = '4e53da2a4fbb8e4e142fd856fae1adb8';
+    }
+    Food2ForkService.prototype.findRecipes = function (_ingredients) {
+        var ingredientList = getIngredientList(_ingredients);
+        return this.http.get("http://food2fork.com/api/search?key=" + this.key + "&q=" + ingredientList);
     };
-    GitHubService.prototype.getDetails = function (repo) {
-        var headers = new http_1.Headers();
-        headers.append('Accept', 'application/vnd.github.VERSION.html');
-        return this.http.get(repo.url + "/readme", { headers: headers });
-    };
-    GitHubService = __decorate([
+    Food2ForkService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
-    ], GitHubService);
-    return GitHubService;
+    ], Food2ForkService);
+    return Food2ForkService;
 }());
-exports.GitHubService = GitHubService;
+exports.Food2ForkService = Food2ForkService;
 
 },{"@angular/core":138,"@angular/http":214}],6:[function(require,module,exports){
 "use strict";

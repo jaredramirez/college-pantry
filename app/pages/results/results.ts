@@ -1,27 +1,29 @@
 import {Page, NavController, NavParams} from 'ionic-angular';
 import {DetailsPage} from '../details/details';
-import {GitHubService} from '../../services/github';
+import {Food2ForkService} from '../../services/food2fork';
 
 @Page({
     templateUrl: 'build/pages/results/results.html',
-    providers: [GitHubService]
+    providers: [Food2ForkService]
 })
 export class ResultsPage {
-    public foundRepos;
-    public username;
+    public foundRecipes;
+    public ingredients;
 
-    constructor(private github: GitHubService, private nav: NavController, private navParams: NavParams) {
-        this.username = navParams.get('username');
-        this.github.getRepos(this.username).subscribe(
+    constructor(private food2fork: Food2ForkService, private nav: NavController, private navParams: NavParams) {
+        this.ingredients = navParams.get('ingredients');
+
+        this.food2fork.findRecipes(this.ingredients).subscribe(
             data => {
-                this.foundRepos = data.json();
+                let object = data.json();
+                this.foundRecipes = object.recipes;
             },
             err => console.error(err),
-            () => console.log('getRepos completed')
+            () => null
         );
     }
 
-    goToDetails(repo) {
-        this.nav.push(DetailsPage, {repo:repo});
+    goToDetails(recipe) {
+        this.nav.push(DetailsPage, {recipe:recipe});
     }
 }

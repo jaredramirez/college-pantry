@@ -1,9 +1,9 @@
 <ion-navbar *navbar>
     <ion-title>
-        {{ repo.name }}
+        {{ recipe.title }}
     </ion-title>
 </ion-navbar>
 
 <ion-content>
-    <div padding [innerHTML]="readme"></div>
+    <div padding [innerHTML]="recipe.source_url"></div>
 </ion-content>

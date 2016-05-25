@@ -1,17 +1,21 @@
 <ion-navbar *navbar>
-    <ion-title>
-        GitHub
-    </ion-title>
+  <ion-title>
+      College Pantry
+  </ion-title>
+  <ion-buttons end>
+    <button (click)="goToResults()"><ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon></button>
+  </ion-buttons>
 </ion-navbar>
 
 <ion-content class="home">
-    <ion-list inset>
-        <ion-item>
-            <ion-label>Username</ion-label>
-            <ion-input [(ngModel)]="username" type="text"></ion-input>
-        </ion-item>
-    </ion-list>
-    <div padding>
-        <button block (click)="goToResults()">Search</button>
-    </div>
+  <ion-list inset>
+    <ion-item *ngFor="let item of ingredients">
+      <ion-input [(ngModel)]="item.ingredient" type="text" placeholder="Ingredient"></ion-input>
+    </ion-item>
+  </ion-list>
+  <div padding>
+    <button fab fab-center (click)="addNewIngredient()">
+      <ion-icon ios="ios-add" md="md-add"></ion-icon>
+    </button>
+  </div>
 </ion-content>

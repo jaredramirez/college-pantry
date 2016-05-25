@@ -5,12 +5,12 @@
 </ion-navbar>
 
 <ion-content class="results">
-    <ion-card *ngFor="let repo of foundRepos" (click)="goToDetails(repo)">
+    <ion-card *ngFor="let recipe of foundRecipes" (click)="goToDetails(recipe)">
         <ion-card-header>
-            {{ repo.name }}
+            {{ recipe.title }}
         </ion-card-header>
         <ion-card-content>
-            {{ repo.description }}
+
         </ion-card-content>
     </ion-card>
 </ion-content>

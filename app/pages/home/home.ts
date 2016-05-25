@@ -1,19 +1,25 @@
 import {Page, NavController} from 'ionic-angular';
 import {ResultsPage} from '../results/results';
-import {GitHubService} from '../../services/github';
 
 @Page({
-    templateUrl: 'build/pages/home/home.html',
-    providers: [GitHubService]
+    templateUrl: 'build/pages/home/home.html'
 })
 export class HomePage {
     public foundRepos;
     public username;
+    private ingredients;
 
-    constructor(private github: GitHubService, private nav: NavController) {
+    constructor(private nav: NavController) {
+      this.ingredients = [{ingredient: ''}];
+    }
+
+    addNewIngredient() {
+      this.ingredients.push({ingredient: ''});
     }
 
     goToResults() {
-        this.nav.push(ResultsPage, {username: this.username});
+      if(this.ingredients.length>0){
+        this.nav.push(ResultsPage, {ingredients: this.ingredients});
+      }
     }
 }

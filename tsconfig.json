@@ -14,8 +14,16 @@
     "typings/main",
     "typings/main.d.ts"
   ],
-  "compileOnSave": false,
+  "files": [
+    "app/app.ts",
+    "app/pages/details/details.ts",
+    "app/pages/home/home.ts",
+    "app/pages/results/results.ts",
+    "app/services/food2fork.ts",
+    "typings/browser.d.ts",
+    "typings/browser/ambient/es6-shim/index.d.ts"
+  ],
   "atom": {
-    "rewriteTsconfig": false
+    "rewriteTsconfig": true
   }
 }
