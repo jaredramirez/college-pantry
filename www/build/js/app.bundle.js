@@ -1,179 +1,261 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var ionic_angular_1 = require('ionic-angular');
-var ionic_native_1 = require('ionic-native');
-var home_1 = require('./pages/home/home');
-var MyApp = (function () {
-    function MyApp(platform) {
-        this.rootPage = home_1.HomePage;
-        platform.ready().then(function () {
-            // Okay, so the platform is ready and our plugins are available.
-            // Here you can do any higher level native things you might need.
-            ionic_native_1.StatusBar.styleDefault();
-        });
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MyApp = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _ionicAngular = require('ionic-angular');
+
+var _ionicNative = require('ionic-native');
+
+var _home = require('./pages/home/home');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+// http://ionicframework.com/docs/v2/api/config/Config/
+var MyApp = exports.MyApp = (_dec = (0, _ionicAngular.App)({
+  template: '<ion-nav [root]="rootPage"></ion-nav>',
+  config: {} }), _dec(_class = function () {
+  _createClass(MyApp, null, [{
+    key: 'parameters',
+    get: function get() {
+      return [[_ionicAngular.Platform]];
     }
-    MyApp = __decorate([
-        ionic_angular_1.App({
-            template: '<ion-nav [root]="rootPage"></ion-nav>',
-            config: {} // http://ionicframework.com/docs/v2/api/config/Config/
-        }), 
-        __metadata('design:paramtypes', [ionic_angular_1.Platform])
-    ], MyApp);
-    return MyApp;
-}());
-exports.MyApp = MyApp;
+  }]);
+
+  function MyApp(platform) {
+    _classCallCheck(this, MyApp);
+
+    this.rootPage = _home.HomePage;
+
+    platform.ready().then(function () {
+      // Okay, so the platform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.
+      _ionicNative.StatusBar.styleDefault();
+    });
+  }
+
+  return MyApp;
+}()) || _class);
 
 },{"./pages/home/home":3,"ionic-angular":387,"ionic-native":410}],2:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var ionic_angular_1 = require('ionic-angular');
-var DetailsPage = (function () {
-    function DetailsPage(navParams) {
-        this.navParams = navParams;
-        this.recipe = navParams.get('recipe');
-    }
-    DetailsPage = __decorate([
-        ionic_angular_1.Page({
-            templateUrl: 'build/pages/details/details.html'
-        }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavParams])
-    ], DetailsPage);
-    return DetailsPage;
-}());
-exports.DetailsPage = DetailsPage;
+'use strict';
 
-},{"ionic-angular":387}],3:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var ionic_angular_1 = require('ionic-angular');
-var results_1 = require('../results/results');
-var HomePage = (function () {
-    function HomePage(nav) {
-        this.nav = nav;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.DetailsPage = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _ionicAngular = require('ionic-angular');
+
+var _ionicNative = require('ionic-native');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DetailsPage = exports.DetailsPage = (_dec = (0, _ionicAngular.Page)({
+  templateUrl: 'build/pages/details/details.html'
+}), _dec(_class = function () {
+  _createClass(DetailsPage, null, [{
+    key: 'parameters',
+    get: function get() {
+      return [[_ionicAngular.NavParams], [_ionicAngular.Platform]];
+    }
+  }]);
+
+  function DetailsPage(navParams, platform) {
+    var _this = this;
+
+    _classCallCheck(this, DetailsPage);
+
+    this.navParams = navParams;
+    this.platform = platform;
+    this.recipe = navParams.get('recipe');
+
+    this.platform.ready().then(function () {
+      _ionicNative.InAppBrowser.open(_this.recipe.source_url, '_self', 'location=yes,toolbar=yes,disallowoverscroll=no');
+    });
+  }
+
+  return DetailsPage;
+}()) || _class);
+
+},{"ionic-angular":387,"ionic-native":410}],3:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.HomePage = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _ionicAngular = require('ionic-angular');
+
+var _results = require('./../results/results');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var HomePage = exports.HomePage = (_dec = (0, _ionicAngular.Page)({
+  templateUrl: 'build/pages/home/home.html'
+}), _dec(_class = function () {
+  _createClass(HomePage, null, [{
+    key: 'parameters',
+    get: function get() {
+      return [[_ionicAngular.NavController]];
+    }
+  }]);
+
+  function HomePage(nav) {
+    _classCallCheck(this, HomePage);
+
+    this.nav = nav;
+    this.ingredients = [{ ingredient: '' }];
+  }
+
+  _createClass(HomePage, [{
+    key: 'addNewIngredient',
+    value: function addNewIngredient() {
+      this.ingredients.push({ ingredient: '' });
+    }
+  }, {
+    key: 'goToResults',
+    value: function goToResults() {
+      if (this.ingredients.length > 0) {
+        this.nav.push(_results.ResultsPage, { ingredients: this.ingredients });
         this.ingredients = [{ ingredient: '' }];
+      }
     }
-    HomePage.prototype.addNewIngredient = function () {
-        this.ingredients.push({ ingredient: '' });
-    };
-    HomePage.prototype.goToResults = function () {
-        if (this.ingredients.length > 0) {
-            this.nav.push(results_1.ResultsPage, { ingredients: this.ingredients });
-        }
-    };
-    HomePage = __decorate([
-        ionic_angular_1.Page({
-            templateUrl: 'build/pages/home/home.html'
-        }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController])
-    ], HomePage);
-    return HomePage;
-}());
-exports.HomePage = HomePage;
+  }]);
 
-},{"../results/results":4,"ionic-angular":387}],4:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var ionic_angular_1 = require('ionic-angular');
-var details_1 = require('../details/details');
-var food2fork_1 = require('../../services/food2fork');
-var ResultsPage = (function () {
+  return HomePage;
+}()) || _class);
+
+},{"./../results/results":4,"ionic-angular":387}],4:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.ResultsPage = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _ionicAngular = require('ionic-angular');
+
+var _details = require('../details/details');
+
+var _food2forkService = require('../../services/food2forkService');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ResultsPage = exports.ResultsPage = (_dec = (0, _ionicAngular.Page)({
+    templateUrl: 'build/pages/results/results.html',
+    providers: [_food2forkService.Food2ForkService]
+}), _dec(_class = function () {
+    _createClass(ResultsPage, null, [{
+        key: 'parameters',
+        get: function get() {
+            return [[_food2forkService.Food2ForkService], [_ionicAngular.NavController], [_ionicAngular.NavParams]];
+        }
+    }]);
+
     function ResultsPage(food2fork, nav, navParams) {
         var _this = this;
+
+        _classCallCheck(this, ResultsPage);
+
         this.food2fork = food2fork;
         this.nav = nav;
         this.navParams = navParams;
         this.ingredients = navParams.get('ingredients');
+
         this.food2fork.findRecipes(this.ingredients).subscribe(function (data) {
             var object = data.json();
             _this.foundRecipes = object.recipes;
-        }, function (err) { return console.error(err); }, function () { return null; });
+        }, function (err) {
+            return console.error(err);
+        });
     }
-    ResultsPage.prototype.goToDetails = function (recipe) {
-        this.nav.push(details_1.DetailsPage, { recipe: recipe });
-    };
-    ResultsPage = __decorate([
-        ionic_angular_1.Page({
-            templateUrl: 'build/pages/results/results.html',
-            providers: [food2fork_1.Food2ForkService]
-        }), 
-        __metadata('design:paramtypes', [food2fork_1.Food2ForkService, ionic_angular_1.NavController, ionic_angular_1.NavParams])
-    ], ResultsPage);
-    return ResultsPage;
-}());
-exports.ResultsPage = ResultsPage;
 
-},{"../../services/food2fork":5,"../details/details":2,"ionic-angular":387}],5:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-var getIngredientList = function (ingredients) {
-    var list = '';
-    for (var i = 0; i < ingredients.length; i++) {
-        list += ingredients[i].ingredient;
-        if (i + 1 < ingredients.length) {
-            list += ',';
+    _createClass(ResultsPage, [{
+        key: 'goToDetails',
+        value: function goToDetails(recipe) {
+            this.nav.push(_details.DetailsPage, { recipe: recipe });
         }
+    }]);
+
+    return ResultsPage;
+}()) || _class);
+
+},{"../../services/food2forkService":5,"../details/details":2,"ionic-angular":387}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Food2ForkService = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
+
+var _core = require('@angular/core');
+
+var _http = require('@angular/http');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var getIngredientList = function getIngredientList(ingredients) {
+  var list = '';
+  for (var i = 0; i < ingredients.length; i++) {
+    list += ingredients[i].ingredient;
+    if (i + 1 < ingredients.length) {
+      list += ',';
     }
-    return list;
+  }
+  return list;
 };
-var Food2ForkService = (function () {
-    function Food2ForkService(http) {
-        this.http = http;
-        this.key = '4e53da2a4fbb8e4e142fd856fae1adb8';
+
+var Food2ForkService = exports.Food2ForkService = (_dec = (0, _core.Injectable)(), _dec(_class = function () {
+  _createClass(Food2ForkService, null, [{
+    key: 'parameters',
+    get: function get() {
+      return [[_http.Http]];
     }
-    Food2ForkService.prototype.findRecipes = function (_ingredients) {
-        var ingredientList = getIngredientList(_ingredients);
-        return this.http.get("http://food2fork.com/api/search?key=" + this.key + "&q=" + ingredientList);
-    };
-    Food2ForkService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], Food2ForkService);
-    return Food2ForkService;
-}());
-exports.Food2ForkService = Food2ForkService;
+  }]);
+
+  function Food2ForkService(http) {
+    _classCallCheck(this, Food2ForkService);
+
+    this.http = http;
+    this.key = '4e53da2a4fbb8e4e142fd856fae1adb8';
+  }
+
+  _createClass(Food2ForkService, [{
+    key: 'findRecipes',
+    value: function findRecipes(_ingredients) {
+      var ingredientList = getIngredientList(_ingredients);
+      var query = 'http://food2fork.com/api/search?key=' + this.key + '&q=' + ingredientList;
+      return this.http.get(query);
+    }
+  }]);
+
+  return Food2ForkService;
+}()) || _class);
 
 },{"@angular/core":138,"@angular/http":214}],6:[function(require,module,exports){
 "use strict";
@@ -87191,9 +87273,7 @@ function tryCatch(fn) {
 exports.tryCatch = tryCatch;
 ;
 
-},{"./errorObject":728}],743:[function(require,module,exports){
-
-},{}]},{},[1,743])
+},{"./errorObject":728}]},{},[1])
 
 
 //# sourceMappingURL=app.bundle.js.map

@@ -5,12 +5,12 @@
 </ion-navbar>
 
 <ion-content class="results">
-    <ion-card *ngFor="let recipe of foundRecipes" (click)="goToDetails(recipe)">
-        <ion-card-header>
-            {{ recipe.title }}
-        </ion-card-header>
-        <ion-card-content>
-
-        </ion-card-content>
-    </ion-card>
+    <ion-list *ngFor="let recipe of foundRecipes" (click)="goToDetails(recipe)">
+        <ion-item>
+          <ion-thumbnail item-left>
+            <img [src]="recipe.image_url">
+          </ion-thumbnail>
+          <h2>{{ recipe.title }}</h2>
+        </ion-item>
+    </ion-list>
 </ion-content>
