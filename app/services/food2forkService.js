@@ -22,9 +22,9 @@ export class Food2ForkService {
     this.key = '4e53da2a4fbb8e4e142fd856fae1adb8';
   }
 
-  findRecipes(_ingredients) {
+  findRecipes(_ingredients, _pageNumber) {
     let ingredientList = getIngredientList(_ingredients);
-    let query = `http://food2fork.com/api/search?key=${this.key}&q=${ingredientList}`;
+    let query = `http://food2fork.com/api/search?key=${this.key}&q=${ingredientList}&page=${_pageNumber}`;
     return this.http.get(query);
   }
 }

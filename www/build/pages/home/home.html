@@ -3,19 +3,26 @@
       College Pantry
   </ion-title>
   <ion-buttons end>
-    <button (click)="goToResults()"><ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon></button>
+    <button (click)="addIngredient()"><ion-icon ios="ios-add" md="md-add"></ion-icon></button>
   </ion-buttons>
 </ion-navbar>
 
 <ion-content class="home">
   <ion-list inset>
-    <ion-item *ngFor="let item of ingredients">
-      <ion-input [(ngModel)]="item.ingredient" type="text" placeholder="Ingredient"></ion-input>
-    </ion-item>
+    <ion-item-sliding #itemSliding *ngFor="let ingredient of ingredients">
+      <ion-item>
+        <ion-input [(ngModel)]="ingredient.ingredient" type="text" placeholder="Ingredient"></ion-input>
+      </ion-item>
+      <ion-item-options>
+        <button danger (click)="removeIngredient(ingredient)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
   <div padding>
-    <button fab fab-center (click)="addNewIngredient()">
-      <ion-icon ios="ios-add" md="md-add"></ion-icon>
+    <button fab fab-center (click)="calcuateResults()">
+      <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
     </button>
   </div>
 </ion-content>

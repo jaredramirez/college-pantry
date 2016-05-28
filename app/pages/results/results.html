@@ -1,11 +1,11 @@
 <ion-navbar *navbar>
-    <ion-title>
-        Results
-    </ion-title>
+  <ion-title>
+      Results
+  </ion-title>
 </ion-navbar>
 
 <ion-content class="results">
-    <ion-list *ngFor="let recipe of foundRecipes" (click)="goToDetails(recipe)">
+    <ion-list *ngFor="let recipe of recipes" (click)="goToDetails(recipe)">
         <ion-item>
           <ion-thumbnail item-left>
             <img [src]="recipe.image_url">
@@ -13,4 +13,10 @@
           <h2>{{ recipe.title }}</h2>
         </ion-item>
     </ion-list>
+    <ion-infinite-scroll (infinite)="doInfinite($event)">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more recipes...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>
