@@ -2,7 +2,7 @@
 <widget id="com.ionicframework.todo260346" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>todo</name>
   <description>
-        An app for finding cheap, easy recipies.
+        A simple interface designed to find easy, affordable recipes.
     </description>
   <author email="jaredramirez@me.com" href="https://github.com/jaredramirez">
       Jared Ramirez

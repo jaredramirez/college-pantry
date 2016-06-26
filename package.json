@@ -1,7 +1,7 @@
 {
   "name": "College Pantry",
   "version": "1.1.1",
-  "description": "College Pantry: An app for finding cheap, easy recipies.",
+  "description": "College Pantry: A simple interface designed to find easy, affordable recipes.",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
