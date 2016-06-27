@@ -1,11 +1,22 @@
-<ion-view>
+<ion-view id="search-container">
   <ion-nav-title >
       Search Recipies
     </ion-nav-title>
   <ion-nav-buttons side="right">
-    <button class="button button-icon ion-ios-arrow-thin-right" ng-click="next()"></button>
+    <a ui-sref="results">
+      <button class="button button-icon ion-arrow-right-c"></button>
+    </a>
   </ion-nav-buttons>
+
+  <!-- just began implementing ng-repeat, finish then move to controller -->
+
   <ion-content>
-    Some super content here!
+    <ion-list>
+      <ion-item ng-repeat="ingredient in ingredients">
+        <ion-label primary>Inline Label</ion-label>
+        <ion-input placeholder="Text Input"></ion-input>
+        <!-- <button ng-click="addIngredient()" class="button button-icon ion-plus-round"></button> -->
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

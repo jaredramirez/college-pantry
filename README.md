@@ -1,3 +1,3 @@
 # college-pantry
 
-A simple interface designed to find easy, affordable recipes.
+A simple interface designed using ionic to find easy, affordable recipes.

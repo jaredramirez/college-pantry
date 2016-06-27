@@ -1,9 +1,10 @@
 angular.module('college-pantry').controller('SearchController',
-  function($scope) {
-      console.log('in search controller');
-
-      $scope.next = function () {
-        console.log('next');
-      }
+  function($scope, $state) {
+    $scope.ingredients = [
+      'a', 'b'
+    ];
+    $scope.addIngredient = function () {
+      console.log('add ingredient');
+    }
   }
 );
