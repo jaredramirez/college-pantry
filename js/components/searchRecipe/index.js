@@ -67,7 +67,11 @@ export default class RecipeSearch extends Component {
     return (
       <View style={styles.container}>
 
-        <IngredientList ingredients={this.props.ingredients} />
+        <IngredientList
+          navigator={this.props.navigator}
+          ingredients={this.props.ingredients}
+          onChange={this.props.onChange}
+        />
 
         <Text style={styles.appTitle}>
           College Pantry

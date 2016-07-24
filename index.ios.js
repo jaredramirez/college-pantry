@@ -82,7 +82,7 @@ class collegePantryReact extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ingredients: [],
+      ingredients: [{name: 'Tomato', quantity: 1}, {name: 'Bell Pepper', quantity: 3}],
       recipes: []
     }
   }

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginRight: 5,
     marginLeft: 5,
-  }
+  },
 })
 
 export default class IngredientList extends Component {
@@ -23,16 +23,10 @@ export default class IngredientList extends Component {
     super(props);
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows([])
+      dataSource: ds.cloneWithRows(this.props.ingredients)
     }
   }
-  componentDidMount() {
-  	this.setState({
-    	dataSource: this.state.dataSource.cloneWithRows(this.props.ingredients)
-    })
-  }
   render() {
-    console.log('render', this.props.ingredients, this.state.dataSource.getRowCount());
     return (
       <ListView
         dataSource = {this.state.dataSource}
@@ -43,9 +37,13 @@ export default class IngredientList extends Component {
     )
   }
   renderRow(rowData, sectionId, rowId) {
-    console.log('renderRow', rowData);
     return (
-      <Text>{rowData.name}</Text>
+      <IngredientListItem
+        navigator={this.props.navigator}
+        index={rowId}
+        ingredients={this.props.ingredients}
+        onChange={this.props.onChange}
+      />
     );
     /*
     <IngredientListItem
