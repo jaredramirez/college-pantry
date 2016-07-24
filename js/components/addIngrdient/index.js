@@ -79,7 +79,7 @@ export default class AddIngrdient extends Component {
       newIngredients = this.props.ingredients.slice();
       newIngredients.push({name: this.state.name, quantity: quantityNum});
       this.props.onChange(newIngredients);
-      this.props.navigator.pop();
+      this.props.navigator.replacePreviousAndPop({ name: 'SearchRecipe', type: 'page' })
     } else {
       this.setState({
         hasError: true,
