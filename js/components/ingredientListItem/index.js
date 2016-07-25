@@ -49,6 +49,18 @@ export default class IngredientListItem extends Component {
     this.props.onChange(newIngredients);
     this.props.navigator.replace({ name: 'SearchRecipe', type: 'page' })
   }
+  modifyIngredient() {
+    this.props.navigator.push({
+      name: 'AddIngrdient',
+      type: 'modal',
+      passProps: {
+        ingredientIndex: this.props.index,
+        ingredientName: this.state.ingredient.name,
+        ingredientQuantity: this.state.ingredient.quantity,
+        update: true
+      }
+    })
+  }
   render() {
     return (
       <View style={styles.ingredient}>
@@ -58,7 +70,7 @@ export default class IngredientListItem extends Component {
           name="ios-create-outline"
           iconStyle={styles.ingredientButton}
           backgroundColor="green"
-          onPress={() => console.log('pressed')}
+          onPress={this.modifyIngredient.bind(this)}
         />
         <Icon.Button
           name="ios-trash-outline"

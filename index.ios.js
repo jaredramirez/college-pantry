@@ -65,7 +65,7 @@ const NavigationBarRouteMapper = {
             onPress={
               () => navigator.push({
               name: 'AddIngrdient',
-              type: 'Modal'
+              type: 'modal'
             })}>
           </Icon.Button>
             )
@@ -126,7 +126,7 @@ class collegePantryReact extends Component {
     }
   }
   configureScene(route, routeStack){
-    if(route.type === 'Modal') {
+    if(route.type === 'modal') {
       return Navigator.SceneConfigs.FloatFromBottom
     } else {
       return Navigator.SceneConfigs.FloatFromRight

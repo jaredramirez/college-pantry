@@ -68,25 +68,28 @@ export default class AddIngrdient extends Component {
     this.state = {
       name: null,
       quantity: null,
+      update: false,
       hasError: false,
       errorMessage: null
     }
   }
-  addIngrdient() {
-    let quantityNum = convertStringToNumber(this.state.quantity);
-    if(isValidIngredientProps(this.state.name, quantityNum)) {
-      let newIngredients = [];
-      newIngredients = this.props.ingredients.slice();
-      newIngredients.push({name: this.state.name, quantity: quantityNum});
-      this.props.onChange(newIngredients);
-      this.props.navigator.replacePreviousAndPop({ name: 'SearchRecipe', type: 'page' })
-    } else {
-      this.setState({
-        hasError: true,
-        errorMessage: 'Invalid props'
-      })
-      return;
-    }
+  componentDidMount() {
+    let name = null, quantity = null, update = false;
+    if(typeof this.props.ingredientName !== typeof undefined) {
+      name = this.props.ingredientName;
+    };
+    if(typeof this.props.ingredientQuantity !== typeof undefined) {
+      quantity = this.props.ingredientQuantity.toString();
+    };
+    if(typeof this.props.update !== typeof undefined ) {
+      update = this.props.update
+    };
+
+    this.setState({
+      name: name,
+      quantity: quantity,
+      update: update
+    });
   }
   render() {
     const errorMessage = (this.state.hasError)?
@@ -114,12 +117,43 @@ export default class AddIngrdient extends Component {
           <Icon.Button
             name="ios-add-circle-outline"
             backgroundColor="#7A8491"
-            onPress={this.addIngrdient.bind(this)}>
-             Add
+            onPress={this.onPress.bind(this)}>
+             {this.state.update ? 'Update' : 'Add'}
           </Icon.Button>
           {errorMessage}
         </View>
       </View>
     );
+  }
+  onPress() {
+    let quantityNum = convertStringToNumber(this.state.quantity);
+    if(isValidIngredientProps(this.state.name, quantityNum)) {
+      if(this.state.update){
+        this._updateIngrdient(quantityNum);
+      } else {
+        this._addIngrdient(quantityNum);
+      }
+    } else {
+      this.setState({
+        hasError: true,
+        errorMessage: 'Invalid props'
+      })
+      return;
+    }
+  }
+  _addIngrdient(quantityNum) {
+    let newIngredients = [];
+    newIngredients = this.props.ingredients.slice();
+    newIngredients.push({name: this.state.name, quantity: quantityNum});
+    this.props.onChange(newIngredients);
+    this.props.navigator.replacePreviousAndPop({ name: 'SearchRecipe', type: 'page' });
+  }
+  _updateIngrdient(quantityNum) {
+    let newIngredients = [];
+    newIngredients = this.props.ingredients.slice();
+    newIngredients[this.props.ingredientIndex].name = this.state.name;
+    newIngredients[this.props.ingredientIndex].quantity = quantityNum;
+    this.props.onChange(newIngredients);
+    this.props.navigator.replacePreviousAndPop({ name: 'SearchRecipe', type: 'page' });
   }
 }

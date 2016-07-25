@@ -45,10 +45,5 @@ export default class IngredientList extends Component {
         onChange={this.props.onChange}
       />
     );
-    /*
-    <IngredientListItem
-      value={this.state.ingredients[rowId]}
-    />
-    */
   }
 }
