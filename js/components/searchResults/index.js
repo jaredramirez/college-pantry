@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   errorMessage: {
+    alignSelf: 'center',
     color: 'red'
   },
   loading: {
@@ -43,6 +44,7 @@ export default class SearchResults extends Component {
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       isLoading: false,
+      hasError: false,
       errorMessage: null,
       dataSource: ds
     }
@@ -55,7 +57,7 @@ export default class SearchResults extends Component {
       (<ActivityIndicator style={styles.loading} size="small" />) :
       (<View/>);
 
-    let errorMessage = (this.state.errorMessage)?
+    let errorMessage = (this.state.hasError)?
       (<Text style={styles.errorMessage}>{this.state.errorMessage}</Text>) :
       (<View/>);
 
@@ -68,13 +70,13 @@ export default class SearchResults extends Component {
             enableEmptySections={true}
             contentContainerStyle={styles.listView}
           />
+          {errorMessage}
           {spinner}
         </ScrollView>
       </View>
     )
   }
   renderRow(rowData, sectionId, rowId) {
-    console.log('rowData', rowData);
     return (
       <Text> {rowData.title} </Text>
     )
@@ -88,6 +90,7 @@ export default class SearchResults extends Component {
 
       this.setState({
         isLoading: false,
+        hasError: false,
         errorMessage: null,
         dataSource: this.state.dataSource.cloneWithRows(jsonData.recipes)
       })
@@ -95,7 +98,8 @@ export default class SearchResults extends Component {
     catch(e){
       this.setState({
         isLoading: false,
-        errorMessage: e,
+        hasError: true,
+        errorMessage: e.message,
         dataSource: this.state.dataSource.cloneWithRows([])
       })
     }
