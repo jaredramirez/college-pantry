@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {
   StyleSheet,
   View,
-  ScrollView,
+  ActivityIndicator,
   ListView,
-  Text,
-  ActivityIndicator
+  TouchableOpacity,
+  Text
 } from 'react-native';
 
 import Key from './../../../api';
@@ -23,13 +23,8 @@ getFood2ForkQuery = (ingredients) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 70
-  },
-  listView: {
+    marginTop: 70,
     flex: 1,
-    alignItems: 'center',
-    marginRight: 5,
-    marginLeft: 5,
   },
   errorMessage: {
     alignSelf: 'center',
@@ -38,6 +33,18 @@ const styles = StyleSheet.create({
   loading: {
     marginTop: 20,
   },
+  listView: {
+    alignItems: 'center',
+    marginRight: 5,
+    marginLeft: 5,
+  },
+  row: {
+    paddingTop: 20,
+    paddingBottom: 20
+  },
+  rowText: {
+    textAlign: 'center'
+  }
 });
 
 export default class SearchResults extends Component {
@@ -65,22 +72,22 @@ export default class SearchResults extends Component {
 
     return (
       <View style={styles.container}>
-        <ScrollView>
-          <ListView
-            dataSource = {this.state.dataSource}
-            renderRow={this.renderRow.bind(this)}
-            enableEmptySections={true}
-            contentContainerStyle={styles.listView}
-          />
-          {errorMessage}
-          {spinner}
-        </ScrollView>
+        {errorMessage}
+        {spinner}
+        <ListView
+          dataSource = {this.state.dataSource}
+          renderRow={this.renderRow.bind(this)}
+          enableEmptySections={true}
+          contentContainerStyle={styles.listView}
+        />
       </View>
     )
   }
   renderRow(rowData, sectionId, rowId) {
     return (
-      <Text> {rowData.title} </Text>
+      <TouchableOpacity style={styles.row}>
+        <Text style={styles.rowText}> {rowData.title} </Text>
+      </TouchableOpacity>
     )
   }
   async getRecipesFromDBAsync(){
