@@ -38,7 +38,7 @@ const NavigationBarRouteMapper = {
   LeftButton(route, navigator, index, navState) {
     if(index > 0) {
       return (
-        <Icon.Button
+      <Icon.Button
           name="ios-arrow-back"
           size={25}
           iconStyle={styles.back}

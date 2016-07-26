@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import Key from './../../../api';
 import IngredientList from './../ingredientList/index';
 
 const styles = StyleSheet.create({

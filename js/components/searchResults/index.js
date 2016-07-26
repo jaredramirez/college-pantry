@@ -8,6 +8,8 @@ import {
   ActivityIndicator
 } from 'react-native';
 
+import Key from './../../../api';
+
 getFood2ForkQuery = (ingredients) => {
   let query = 'http://food2fork.com/api/search?';
   query += 'key=' + Key + '&q=';
