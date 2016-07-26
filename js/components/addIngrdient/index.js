@@ -116,6 +116,7 @@ export default class AddIngrdient extends Component {
         <View style={styles.buttonWrapper}>
           <Icon.Button
             name="ios-add-circle-outline"
+            borderRadius={15}
             backgroundColor="#7A8491"
             onPress={this.onPress.bind(this)}>
              {this.state.update ? 'Update' : 'Add'}
