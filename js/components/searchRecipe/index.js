@@ -67,7 +67,7 @@ export default class RecipeSearch extends Component {
               name="ios-search"
               borderRadius={15}
               backgroundColor="#7A8491"
-              onPress={this.goToResults.bind(this)}>
+              onPress={this._goToResults.bind(this)}>
             Search
             </Icon.Button>
           </View>
@@ -82,7 +82,7 @@ export default class RecipeSearch extends Component {
       </View>
     )
   }
-  goToResults() {
+  _goToResults() {
     this.props.navigator.push({
       name: 'SearchResults',
       passProps: {

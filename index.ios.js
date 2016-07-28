@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import SearchRecipe from './js/components/searchRecipe/index';
 import AddIngrdient from './js/components/addIngrdient/index';
 import SearchResults from './js/components/searchResults/index';
+import Recipie from './js/components/recipie/index';
 
 const styles = StyleSheet.create({
   container: {
@@ -123,6 +124,9 @@ class collegePantryReact extends Component {
     }
     if(route.name == 'SearchResults') {
       return <SearchResults navigator={navigator} {...route.props} {...route.passProps}/>
+    }
+    if(route.name == 'Recipie') {
+      return <Recipie navigator={navigator} {...route.props} {...route.passProps}/>
     }
   }
   configureScene(route, routeStack){

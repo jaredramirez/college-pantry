@@ -61,6 +61,37 @@ export default class SearchResults extends Component {
   componentDidMount() {
     this.getRecipesFromDBAsync();
   }
+  async getRecipesFromDBAsync(){
+    this.setState({isLoading: true});
+    try{
+      let query = getFood2ForkQuery(this.props.ingredients);
+      const response = await fetch(query);
+      const jsonData = await response.json();
+
+      this.setState({
+        isLoading: false,
+        hasError: false,
+        errorMessage: null,
+        dataSource: this.state.dataSource.cloneWithRows(jsonData.recipes)
+      })
+    }
+    catch(e){
+      this.setState({
+        isLoading: false,
+        hasError: true,
+        errorMessage: e.message,
+        dataSource: this.state.dataSource.cloneWithRows([])
+      })
+    }
+  }
+  _goToRecipie(recipie) {
+    this.props.navigator.push({
+      name: 'Recipie',
+      passProps: {
+        recipie: recipie
+      }
+    })
+  }
   render() {
     let spinner = (this.state.isLoading)?
       (<ActivityIndicator style={styles.loading} size="small" />) :
@@ -85,32 +116,9 @@ export default class SearchResults extends Component {
   }
   renderRow(rowData, sectionId, rowId) {
     return (
-      <TouchableOpacity style={styles.row}>
+      <TouchableOpacity style={styles.row} onPress={this._goToRecipie.bind(this, rowData)}>
         <Text style={styles.rowText}> {rowData.title} </Text>
       </TouchableOpacity>
     )
-  }
-  async getRecipesFromDBAsync(){
-    this.setState({isLoading: true});
-    try{
-      let query = getFood2ForkQuery(this.props.ingredients);
-      const response = await fetch(query);
-      const jsonData = await response.json();
-
-      this.setState({
-        isLoading: false,
-        hasError: false,
-        errorMessage: null,
-        dataSource: this.state.dataSource.cloneWithRows(jsonData.recipes)
-      })
-    }
-    catch(e){
-      this.setState({
-        isLoading: false,
-        hasError: true,
-        errorMessage: e.message,
-        dataSource: this.state.dataSource.cloneWithRows([])
-      })
-    }
   }
 }
