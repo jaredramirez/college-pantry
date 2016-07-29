@@ -75,7 +75,8 @@ const NavigationBarRouteMapper = {
     }
   },
   Title(route, navigator, index, navState) {
-    return <Text style={styles.title}>{route.name}</Text>
+    let name = route.name.replace(/([A-Z])/g, ' $1').trim()
+    return <Text style={styles.title}>{name}</Text>
   }
 };
 

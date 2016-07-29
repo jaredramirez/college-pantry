@@ -31,12 +31,12 @@ export default class IngredientList extends Component {
       <ListView
         dataSource = {this.state.dataSource}
         enableEmptySections={true}
-        renderRow={this.renderRow.bind(this)}
+        renderRow={this._renderRow.bind(this)}
         contentContainerStyle={styles.listView}
       />
     )
   }
-  renderRow(rowData, sectionId, rowId) {
+  _renderRow(rowData, sectionId, rowId) {
     return (
       <IngredientListItem
         navigator={this.props.navigator}

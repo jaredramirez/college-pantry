@@ -4,6 +4,7 @@ import {
   View,
   ActivityIndicator,
   ListView,
+  Image,
   TouchableOpacity,
   Text
 } from 'react-native';
@@ -23,7 +24,7 @@ getFood2ForkQuery = (ingredients) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 70,
+    marginTop: 60,
     flex: 1,
   },
   errorMessage: {
@@ -35,17 +36,45 @@ const styles = StyleSheet.create({
   },
   listView: {
     alignItems: 'center',
-    marginRight: 5,
-    marginLeft: 5,
+    paddingRight: 50,
+    paddingLeft: 50,
+  },
+  separator: {
+    height: 1,
+    alignSelf: 'stretch',
+    backgroundColor: '#7A8491',
   },
   row: {
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+    alignItems: 'center',
     paddingTop: 20,
-    paddingBottom: 20
+    paddingBottom: 20,
+  },
+  rowThumb: {
+    width: 48,
+    height: 48,
+    borderRadius: 4,
+    marginRight: 10,
+  },
+  textWrap: {
+    flexDirection: 'column',
+    flex: 0.8
   },
   rowText: {
-    textAlign: 'center'
+    textAlign: 'center',
+    flexWrap: 'wrap',
   }
 });
+
+cleanString = (text) => {
+   let n = text.search('&#8217;');
+   if(n === -1) {
+     return text;
+   } else {
+     return text.replace(text.substring(n, n+7), '\'');
+   }
+}
 
 export default class SearchResults extends Component {
   constructor(props){
@@ -102,23 +131,36 @@ export default class SearchResults extends Component {
       (<View/>);
 
     return (
-      <View style={styles.container}>
+        <View style={styles.container}>
         {errorMessage}
         {spinner}
         <ListView
           dataSource = {this.state.dataSource}
-          renderRow={this.renderRow.bind(this)}
+          renderRow={this._renderRow.bind(this)}
+          renderSeparator={this._renderSeperator.bind(this)}
           enableEmptySections={true}
           contentContainerStyle={styles.listView}
         />
       </View>
     )
   }
-  renderRow(rowData, sectionId, rowId) {
+  _renderRow(rowData, sectionId, rowId, highlightRow) {
+    let cleanTitle = cleanString(rowData.title);
     return (
       <TouchableOpacity style={styles.row} onPress={this._goToRecipie.bind(this, rowData)}>
-        <Text style={styles.rowText}> {rowData.title} </Text>
+        <Image style={styles.rowThumb} source={{uri: rowData.image_url}} />
+        <View style={styles.textWrap}>
+          <Text style={styles.rowText} numberOfLines={5}> {cleanTitle} </Text>
+        </View>
       </TouchableOpacity>
     )
+  }
+  _renderSeperator(sectionID, rowID, adjacentRowHighlighted) {
+    return (
+      <View
+        key={`${sectionID}-${rowID}`}
+        style={styles.separator}
+      />
+    );
   }
 }

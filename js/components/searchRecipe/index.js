@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     color: '#656565'
   },
   searchWrapper: {
+    marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },
