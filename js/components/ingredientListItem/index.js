@@ -11,8 +11,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent:'center',
-    marginLeft: 20,
-    marginRight: 20,
     backgroundColor: '#ADB6BB',
     borderColor: '#ADB6BB',
     borderRadius: 6,
@@ -49,7 +47,7 @@ export default class IngredientListItem extends Component {
   }
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, this.props.style]}>
         <View style={styles.texts}>
           <Text style={styles.text}>{this.state.ingredient.name}</Text>
         </View>

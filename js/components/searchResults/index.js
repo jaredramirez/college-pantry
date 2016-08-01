@@ -13,7 +13,7 @@ import Key from './../../../api';
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 60,
+    marginTop: 65,
     flex: 1,
   },
   loading: {
@@ -58,12 +58,12 @@ const styles = StyleSheet.create({
 });
 
 cleanString = (text) => {
-   let n = text.search('&#8217;');
-   if(n === -1) {
-     return text;
-   } else {
-     return text.replace(text.substring(n, n+7), '\'');
-   }
+  let n = text.search('&#8217;');
+  if(n === -1) {
+   return text;
+  } else {
+   return text.replace(text.substring(n, n+7), '\'');
+  }
 }
 
 getFood2ForkQuery = (ingredients) => {

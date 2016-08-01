@@ -16,6 +16,11 @@ const styles = StyleSheet.create({
     marginRight: 5,
     marginLeft: 5,
   },
+  row: {
+    marginLeft: 15,
+    marginRight: 15,
+    marginTop: 10
+  }
 })
 
 export default class IngredientList extends Component {
@@ -39,6 +44,7 @@ export default class IngredientList extends Component {
   _renderRow(rowData, sectionId, rowId) {
     return (
       <IngredientListItem
+        style={styles.row}
         navigator={this.props.navigator}
         index={rowId}
         ingredients={this.props.ingredients}

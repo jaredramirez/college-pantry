@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 70,
+    marginTop: 65,
   },
   inputWrapper: {
     alignItems: 'stretch',

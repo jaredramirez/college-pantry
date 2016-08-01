@@ -13,7 +13,7 @@ import IngredientList from './../ingredientList/index';
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 70,
+    marginTop: 65,
     flex: 1,
   },
   defaultText: {
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     color: '#656565'
   },
   searchWrapper: {
-    marginTop: 20,
+    marginTop: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },
