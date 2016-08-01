@@ -89,7 +89,7 @@ class collegePantryReact extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ingredients: [{name: 'Tomato'}]
+      ingredients: []
     }
   }
   onIngedientChange = (ingredients) => {

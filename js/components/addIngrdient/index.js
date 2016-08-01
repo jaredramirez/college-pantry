@@ -10,26 +10,25 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 4,
+    justifyContent: 'space-around',
+    alignItems: 'center',
     marginTop: 65,
   },
   inputWrapper: {
-    alignItems: 'stretch',
-    flex: 1
+    borderBottomWidth: 1,
+    borderColor: '#7A8491',
+    marginLeft: 30,
+    marginRight: 30,
+    alignSelf: 'stretch',
   },
   input: {
     height: 36,
     fontSize: 18,
-    borderWidth: 1,
-    borderColor: '#7A8491',
-    borderRadius: 8,
-    marginLeft: 30,
-    marginRight: 30,
     textAlign: 'center',
   },
-  buttonWrapper: {
-    alignItems: 'center',
-    flex: 9
+  button: {
+    alignSelf: 'center',
   },
   errorText: {
     color: 'red',
@@ -74,7 +73,7 @@ export default class AddIngrdient extends Component {
       (<View/>)
     return (
       <View style={styles.container}>
-        <View style={styles.inputWrapper}>
+      <View style={styles.inputWrapper}>
           <TextInput
             style={styles.input}
             value={this.state.name}
@@ -82,16 +81,15 @@ export default class AddIngrdient extends Component {
             placeholder='Ingredient Name'
           />
         </View>
-        <View style={styles.buttonWrapper}>
-          <Icon.Button
-            name="ios-add-circle-outline"
-            borderRadius={15}
-            backgroundColor="#7A8491"
-            onPress={this._onPress.bind(this)}>
-             {this.state.update ? 'Update' : 'Add'}
-          </Icon.Button>
-          {error}
-        </View>
+        <Icon.Button
+          name="ios-add-circle-outline"
+          iconStyle={styles.button}
+          borderRadius={15}
+          backgroundColor="#7A8491"
+          onPress={this._onPress.bind(this)}>
+           {this.state.update ? 'Update' : 'Add'}
+        </Icon.Button>
+        {error}
       </View>
     );
   }
