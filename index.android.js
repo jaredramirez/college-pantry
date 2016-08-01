@@ -6,44 +6,50 @@ import {
   Text,
   TouchableHighlight
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
-import IngredientSearchPage from './js/components/searchPage/index';
+import SearchRecipe from './js/components/searchRecipe/index';
+import AddIngrdient from './js/components/addIngrdient/index';
+import SearchResults from './js/components/searchResults/index';
+import Recipie from './js/components/recipie/index';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   navbar: {
-    backgroundColor: '#EFF0F0',
+    backgroundColor: '#7A8491',
     borderBottomColor: '#EAEBEB',
     borderBottomWidth: 2
   },
-  navbarTitle: {
+  title: {
+    color: 'white',
     fontWeight: '500',
     fontSize: 16,
     marginVertical: 9,
   },
-  navbarLeftButton: {
-    fontWeight: '400',
-    fontSize: 14,
-    marginVertical: 10,
+  back: {
     marginLeft: 10,
-  }
+    marginRight: 0,
+    backgroundColor: 'transparent',
+  },
 });
 
 const NavigationBarRouteMapper = {
   LeftButton(route, navigator, index, navState) {
     if(index > 0) {
       return (
-        <TouchableHighlight
-          underlayColor="transparent"
+      <Icon.Button
+          name="ios-arrow-back"
+          size={25}
+          iconStyle={styles.back}
+          backgroundColor="transparent"
           onPress={
             () => {
               if (index > 0) { navigator.pop() }
             }
-          }>
-          <Text style={styles.navbarLeftButton}>Back</Text>
-        </TouchableHighlight>
+          }
+        />
       )
     }
     else {
@@ -51,24 +57,54 @@ const NavigationBarRouteMapper = {
     }
   },
   RightButton(route, navigator, index, navState) {
-    return null;
+    if(route.name !== undefined && route.name === 'SearchRecipe') {
+      return (
+          <Icon.Button
+            name="ios-add"
+            size={25}
+            backgroundColor="transparent"
+            onPress={
+              () => navigator.push({
+              name: 'AddIngrdient',
+              type: 'modal'
+            })}>
+          </Icon.Button>
+            )
+    } else {
+      return null;
+    }
   },
   Title(route, navigator, index, navState) {
-    return <Text style={styles.navbarTitle}>{route.title}</Text>
+    let name;
+    if(route.recipieTitle) {
+      name = route.recipieTitle;
+    } else {
+      name = route.name.replace(/([A-Z])/g, ' $1').trim();
+    }
+    return <Text style={styles.title}>{name}</Text>
   }
 };
 
 class collegePantryReact extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ingredients: []
+    }
+  }
+  onIngedientChange = (ingredients) => {
+    this.setState({ ingredients: ingredients });
+  }
   render() {
     return (
       <Navigator
         style={styles.container}
         initialRoute={{
-          title: 'Ingredient Search',
-          component: IngredientSearchPage
+          name: 'SearchRecipe',
+          type: 'page'
         }}
-        renderScene={ this.renderScene }
-        configureScene={this.configureScene}
+        renderScene={this.renderScene.bind(this)}
+        configureScene={this.configureScene.bind(this)}
         navigationBar={
           <Navigator.NavigationBar
             style={styles.navbar}
@@ -79,11 +115,31 @@ class collegePantryReact extends Component {
     );
   }
   renderScene(route, navigator) {
-    let RouteComponent = route.component
-    return <RouteComponent navigator={navigator} {...route.passProps}/>
+    if(route.name == 'SearchRecipe') {
+      return <SearchRecipe navigator={navigator} {...route.props} {...route.passProps}
+              ingredients={this.state.ingredients}
+              onChange={this.onIngedientChange}
+            />
+    }
+    if(route.name == 'AddIngrdient') {
+      return <AddIngrdient navigator={navigator} {...route.props} {...route.passProps}
+              ingredients={this.state.ingredients}
+              onChange={this.onIngedientChange}
+            />
+    }
+    if(route.name == 'SearchResults') {
+      return <SearchResults navigator={navigator} {...route.props} {...route.passProps}/>
+    }
+    if(route.name == 'Recipie') {
+      return <Recipie navigator={navigator} {...route.props} {...route.passProps}/>
+    }
   }
-  configureScene(route, routeStack) {
-    return Navigator.SceneConfigs.PushFromRight;
+  configureScene(route, routeStack){
+    if(route.type === 'modal') {
+      return Navigator.SceneConfigs.FloatFromBottom
+    } else {
+      return Navigator.SceneConfigs.FloatFromRight
+    }
   }
 }
 

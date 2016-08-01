@@ -13,11 +13,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 70,
   },
-  textInputWrapper: {
+  inputWrapper: {
     alignItems: 'stretch',
     flex: 1
   },
-  textInput: {
+  input: {
     height: 36,
     fontSize: 18,
     borderWidth: 1,
@@ -30,19 +30,6 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     alignItems: 'center',
     flex: 9
-  },
-  create: {
-    height: 25,
-    width: 60,
-    backgroundColor: '#7A8491',
-    borderColor: '#EAEBEB',
-    borderWidth: 1,
-    borderRadius: 8,
-  },
-  createText: {
-    fontSize: 16,
-    color: 'white',
-    alignSelf: 'center'
   },
   errorText: {
     color: 'red',
@@ -87,9 +74,9 @@ export default class AddIngrdient extends Component {
       (<View/>)
     return (
       <View style={styles.container}>
-        <View style={styles.textInputWrapper}>
+        <View style={styles.inputWrapper}>
           <TextInput
-            style={styles.textInput}
+            style={styles.input}
             value={this.state.name}
             onChangeText={(text) => this.setState({name: text})}
             placeholder='Ingredient Name'
@@ -100,7 +87,7 @@ export default class AddIngrdient extends Component {
             name="ios-add-circle-outline"
             borderRadius={15}
             backgroundColor="#7A8491"
-            onPress={this.onPress.bind(this)}>
+            onPress={this._onPress.bind(this)}>
              {this.state.update ? 'Update' : 'Add'}
           </Icon.Button>
           {error}
@@ -108,7 +95,7 @@ export default class AddIngrdient extends Component {
       </View>
     );
   }
-  onPress() {
+  _onPress() {
     if(isValidIngredientProps(this.state.name)) {
       if(this.state.update){
         this._updateIngrdient();
@@ -119,7 +106,7 @@ export default class AddIngrdient extends Component {
       this.setState({
         hasError: true,
         errorMessage: 'Invalid props'
-      })
+      });
       return;
     }
   }

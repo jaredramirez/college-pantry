@@ -8,28 +8,33 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const styles = StyleSheet.create({
-  ingredient: {
+  container: {
     flexDirection: 'row',
     justifyContent:'center',
     marginLeft: 20,
     marginRight: 20,
-    marginBottom: 10,
-
     backgroundColor: '#ADB6BB',
     borderColor: '#ADB6BB',
     borderRadius: 6,
     borderWidth: 2
   },
-  ingredientText: {
-    flex:1,
+  texts: {
+    flex: 3,
+    justifyContent:'center',
+  },
+  text: {
     padding: 4,
     textAlign: 'center',
     alignSelf: 'center',
     color: 'white',
   },
-  ingredientButton: {
+  buttons: {
     flex: 1,
-    alignSelf: 'stretch',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  button: {
+    backgroundColor: 'transparent',
     marginLeft: 0,
     marginRight: 0,
   }
@@ -42,14 +47,37 @@ export default class IngredientListItem extends Component {
       ingredient: this.props.ingredients[this.props.index]
     }
   }
-  deleteIngredient() {
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.texts}>
+          <Text style={styles.text}>{this.state.ingredient.name}</Text>
+        </View>
+        <View style={styles.buttons}>
+          <Icon.Button
+            name="ios-create-outline"
+            iconStyle={styles.button}
+            backgroundColor="transparent"
+            onPress={this._modifyIngredient.bind(this)}
+          />
+          <Icon.Button
+            name="ios-trash-outline"
+            iconStyle={styles.button}
+            backgroundColor="transparent"
+            onPress={this._deleteIngredient.bind(this)}
+          />
+        </View>
+      </View>
+    );
+  }
+  _deleteIngredient() {
     let newIngredients = [];
     newIngredients = this.props.ingredients.slice();
     newIngredients.splice(this.props.index, 1);
     this.props.onChange(newIngredients);
     this.props.navigator.replace({ name: 'SearchRecipe', type: 'page' })
   }
-  modifyIngredient() {
+  _modifyIngredient() {
     this.props.navigator.push({
       name: 'AddIngrdient',
       type: 'modal',
@@ -59,24 +87,5 @@ export default class IngredientListItem extends Component {
         update: true
       }
     })
-  }
-  render() {
-    return (
-      <View style={styles.ingredient}>
-        <Text style={styles.ingredientText}>{this.state.ingredient.name}</Text>
-        <Icon.Button
-          name="ios-create-outline"
-          iconStyle={styles.ingredientButton}
-          backgroundColor="green"
-          onPress={this.modifyIngredient.bind(this)}
-        />
-        <Icon.Button
-          name="ios-trash-outline"
-          iconStyle={styles.ingredientButton}
-          backgroundColor="red"
-          onPress={this.deleteIngredient.bind(this)}
-        />
-      </View>
-    );
   }
 }

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     marginTop: 70,
     flex: 1,
   },
-  noIngrdientsText: {
+  defaultText: {
     marginTop: 20,
     fontSize: 14,
     textAlign: 'center',
@@ -62,7 +62,7 @@ export default class RecipeSearch extends Component {
         ingredients={this.props.ingredients}
         onChange={this.props.onChange}
       />) :
-      (<Text style={styles.noIngrdientsText}> Click the '+' to add an ingrdient! </Text>);
+      (<Text style={styles.defaultText}> Click the '+' to add an ingrdient! </Text>);
 
     let error = this.state.hasError?
       (<Text style={styles.errorText}>{this.state.errorMessage}</Text>) :
