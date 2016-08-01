@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   errorMessage: {
+    marginTop: 15,
     alignSelf: 'center',
     color: 'red'
   },
@@ -97,12 +98,20 @@ export default class SearchResults extends Component {
       const response = await fetch(query);
       const jsonData = await response.json();
 
-      this.setState({
-        isLoading: false,
-        hasError: false,
-        errorMessage: null,
-        dataSource: this.state.dataSource.cloneWithRows(jsonData.recipes)
-      })
+      if(jsonData.recipes.length <=0) {
+        this.setState({
+          isLoading: false,
+          hasError: true,
+          errorMessage: 'No recipies found!',
+        });
+      } else {
+        this.setState({
+          isLoading: false,
+          hasError: false,
+          errorMessage: null,
+          dataSource: this.state.dataSource.cloneWithRows(jsonData.recipes)
+        });
+      }
     }
     catch(e){
       this.setState({
