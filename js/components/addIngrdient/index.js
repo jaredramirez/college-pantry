@@ -50,15 +50,10 @@ const styles = StyleSheet.create({
   }
 });
 
-convertStringToNumber = (string) => {
-  if(string === null || string === undefined || typeof string !== 'string') { return; }
-  return parseInt(string, 10);
-}
-
-isValidIngredientProps = (name, quantity) => {
-  if(name === null || name === undefined || quantity === null || quantity === undefined || isNaN(quantity)) { return false; }
-  if(typeof name !== 'string' || typeof quantity !== 'number') { return false; }
-  if(name.length < 0 || name.length > 20 || quantity <= 0) { return false; }
+isValidIngredientProps = (name) => {
+  if(name === null || name === undefined) { return false; }
+  if(typeof name !== 'string') { return false; }
+  if(name.length < 0 || name.length > 20) { return false; }
   return true;
 }
 
@@ -67,19 +62,15 @@ export default class AddIngrdient extends Component {
     super(props);
     this.state = {
       name: null,
-      quantity: null,
       update: false,
       hasError: false,
       errorMessage: null
     }
   }
   componentDidMount() {
-    let name = null, quantity = null, update = false;
+    let name = null, update = false;
     if(typeof this.props.ingredientName !== typeof undefined) {
       name = this.props.ingredientName;
-    };
-    if(typeof this.props.ingredientQuantity !== typeof undefined) {
-      quantity = this.props.ingredientQuantity.toString();
     };
     if(typeof this.props.update !== typeof undefined ) {
       update = this.props.update
@@ -87,7 +78,6 @@ export default class AddIngrdient extends Component {
 
     this.setState({
       name: name,
-      quantity: quantity,
       update: update
     });
   }
@@ -105,14 +95,6 @@ export default class AddIngrdient extends Component {
             placeholder='Ingredient Name'
           />
         </View>
-        <View style={styles.textInputWrapper}>
-          <TextInput
-            style={styles.textInput}
-            value={this.state.quantity}
-            onChangeText={(text) => this.setState({quantity: text})}
-            placeholder='Ingredient Quantity'
-          />
-        </View>
         <View style={styles.buttonWrapper}>
           <Icon.Button
             name="ios-add-circle-outline"
@@ -127,12 +109,11 @@ export default class AddIngrdient extends Component {
     );
   }
   onPress() {
-    let quantityNum = convertStringToNumber(this.state.quantity);
-    if(isValidIngredientProps(this.state.name, quantityNum)) {
+    if(isValidIngredientProps(this.state.name)) {
       if(this.state.update){
-        this._updateIngrdient(quantityNum);
+        this._updateIngrdient();
       } else {
-        this._addIngrdient(quantityNum);
+        this._addIngrdient();
       }
     } else {
       this.setState({
@@ -142,18 +123,17 @@ export default class AddIngrdient extends Component {
       return;
     }
   }
-  _addIngrdient(quantityNum) {
+  _addIngrdient() {
     let newIngredients = [];
     newIngredients = this.props.ingredients.slice();
-    newIngredients.push({name: this.state.name, quantity: quantityNum});
+    newIngredients.push({name: this.state.name});
     this.props.onChange(newIngredients);
     this.props.navigator.replacePreviousAndPop({ name: 'SearchRecipe', type: 'page' });
   }
-  _updateIngrdient(quantityNum) {
+  _updateIngrdient() {
     let newIngredients = [];
     newIngredients = this.props.ingredients.slice();
     newIngredients[this.props.ingredientIndex].name = this.state.name;
-    newIngredients[this.props.ingredientIndex].quantity = quantityNum;
     this.props.onChange(newIngredients);
     this.props.navigator.replacePreviousAndPop({ name: 'SearchRecipe', type: 'page' });
   }

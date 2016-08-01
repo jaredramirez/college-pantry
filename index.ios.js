@@ -75,7 +75,12 @@ const NavigationBarRouteMapper = {
     }
   },
   Title(route, navigator, index, navState) {
-    let name = route.name.replace(/([A-Z])/g, ' $1').trim()
+    let name;
+    if(route.recipieTitle) {
+      name = route.recipieTitle;
+    } else {
+      name = route.name.replace(/([A-Z])/g, ' $1').trim();
+    }
     return <Text style={styles.title}>{name}</Text>
   }
 };
@@ -84,8 +89,7 @@ class collegePantryReact extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ingredients: [{name: 'Tomato', quantity: 1}, {name: 'Bell Pepper', quantity: 3}],
-      recipes: []
+      ingredients: []
     }
   }
   onIngedientChange = (ingredients) => {

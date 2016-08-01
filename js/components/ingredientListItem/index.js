@@ -56,7 +56,6 @@ export default class IngredientListItem extends Component {
       passProps: {
         ingredientIndex: this.props.index,
         ingredientName: this.state.ingredient.name,
-        ingredientQuantity: this.state.ingredient.quantity,
         update: true
       }
     })
@@ -65,7 +64,6 @@ export default class IngredientListItem extends Component {
     return (
       <View style={styles.ingredient}>
         <Text style={styles.ingredientText}>{this.state.ingredient.name}</Text>
-        <Text style={styles.ingredientText}>{this.state.ingredient.quantity}</Text>
         <Icon.Button
           name="ios-create-outline"
           iconStyle={styles.ingredientButton}

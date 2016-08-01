@@ -116,6 +116,7 @@ export default class SearchResults extends Component {
   _goToRecipie(recipie) {
     this.props.navigator.push({
       name: 'Recipie',
+      recipieTitle: recipie.title,
       passProps: {
         recipie: recipie
       }
