@@ -27,6 +27,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  errorText: {
+    alignSelf: 'center',
+    color: 'red',
+    marginTop: 10
+  },
   appTitle: {
     marginBottom: 10,
     fontSize: 14,
@@ -46,7 +51,8 @@ export default class RecipeSearch extends Component {
     super(props);
     this.state = {
       isLoading: false,
-      recipies: []
+      hasError: false,
+      errorMessage: null
     }
   }
   render() {
@@ -57,6 +63,10 @@ export default class RecipeSearch extends Component {
         onChange={this.props.onChange}
       />) :
       (<Text style={styles.noIngrdientsText}> Click the '+' to add an ingrdient! </Text>);
+
+    let error = this.state.hasError?
+      (<Text style={styles.errorText}>{this.state.errorMessage}</Text>) :
+      (<View />);
 
     return (
       <View style={styles.container}>
@@ -72,6 +82,7 @@ export default class RecipeSearch extends Component {
             Search
             </Icon.Button>
           </View>
+          {error}
         </ScrollView>
 
         <Text style={styles.appTitle}>
@@ -84,11 +95,18 @@ export default class RecipeSearch extends Component {
     )
   }
   _goToResults() {
-    this.props.navigator.push({
-      name: 'SearchResults',
-      passProps: {
-        ingredients: this.props.ingredients
-      }
-    })
+    if(this.props.ingredients.length > 0) {
+      this.props.navigator.push({
+        name: 'SearchResults',
+        passProps: {
+          ingredients: this.props.ingredients
+        }
+      })
+    } else {
+      this.setState({
+        hasError: true,
+        errorMessage: 'Cannot search without ingredients!'
+      })
+    }
   }
 }

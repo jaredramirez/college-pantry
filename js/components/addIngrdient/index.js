@@ -82,7 +82,7 @@ export default class AddIngrdient extends Component {
     });
   }
   render() {
-    const errorMessage = (this.state.hasError)?
+    const error = (this.state.hasError)?
       (<Text style={styles.errorText}>{this.state.errorMessage}</Text>) :
       (<View/>)
     return (
@@ -103,7 +103,7 @@ export default class AddIngrdient extends Component {
             onPress={this.onPress.bind(this)}>
              {this.state.update ? 'Update' : 'Add'}
           </Icon.Button>
-          {errorMessage}
+          {error}
         </View>
       </View>
     );
