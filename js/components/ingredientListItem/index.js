@@ -11,10 +11,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent:'center',
-    backgroundColor: '#ADB6BB',
-    borderColor: '#ADB6BB',
-    borderRadius: 6,
-    borderWidth: 2
   },
   texts: {
     flex: 3,
@@ -24,7 +20,7 @@ const styles = StyleSheet.create({
     padding: 4,
     textAlign: 'center',
     alignSelf: 'center',
-    color: 'white',
+    color: 'black',
   },
   buttons: {
     flex: 1,
@@ -33,6 +29,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'transparent',
+    color: 'black',
     marginLeft: 0,
     marginRight: 0,
   }

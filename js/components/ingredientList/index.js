@@ -20,7 +20,14 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginRight: 15,
     marginTop: 10
-  }
+  },
+  separator: {
+    height: 1,
+    marginRight: 35,
+    marginLeft: 35,
+    alignSelf: 'stretch',
+    backgroundColor: '#7A8491',
+  },
 })
 
 export default class IngredientList extends Component {
@@ -37,6 +44,7 @@ export default class IngredientList extends Component {
         dataSource = {this.state.dataSource}
         enableEmptySections={true}
         renderRow={this._renderRow.bind(this)}
+        renderSeparator={this._renderSeperator.bind(this)}
         contentContainerStyle={styles.listView}
       />
     )
@@ -49,6 +57,14 @@ export default class IngredientList extends Component {
         index={rowId}
         ingredients={this.props.ingredients}
         onChange={this.props.onChange}
+      />
+    );
+  }
+  _renderSeperator(sectionID, rowID, adjacentRowHighlighted) {
+    return (
+      <View
+        key={`${sectionID}-${rowID}`}
+        style={styles.separator}
       />
     );
   }
