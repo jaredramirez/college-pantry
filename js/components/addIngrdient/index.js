@@ -10,8 +10,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 4,
-    justifyContent: 'space-around',
+    flex: 1,
+    justifyContent: 'flex-start',
     alignItems: 'center',
     marginTop: 65,
   },
@@ -20,6 +20,8 @@ const styles = StyleSheet.create({
     borderColor: '#7A8491',
     marginLeft: 30,
     marginRight: 30,
+    marginTop: 15,
+    marginBottom: 15,
     alignSelf: 'stretch',
   },
   input: {
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
 
 isValidIngredientProps = (name) => {
   if(name === null || name === undefined) { return false; }
-  if(typeof name !== 'string') { return false; }
+  if(typeof name !== 'string' || name == '') { return false; }
   if(name.length < 0 || name.length > 20) { return false; }
   return true;
 }
