@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 36,
-    fontSize: 18,
+    fontSize: 14,
     textAlign: 'center',
   },
   button: {

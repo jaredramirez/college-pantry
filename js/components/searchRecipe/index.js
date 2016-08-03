@@ -64,6 +64,18 @@ export default class RecipeSearch extends Component {
       />) :
       (<Text style={styles.defaultText}> Click the '+' to add an ingrdient! </Text>);
 
+    let submit = (this.props.ingredients.length > 0)?
+      (<View style={styles.searchWrapper}>
+        <Icon.Button
+          name="ios-search"
+          borderRadius={15}
+          backgroundColor="#7A8491"
+          onPress={this._goToResults.bind(this)}>
+        Search
+        </Icon.Button>
+      </View>) :
+      (<View />);
+
     let error = this.state.hasError?
       (<Text style={styles.errorText}>{this.state.errorMessage}</Text>) :
       (<View />);
@@ -73,15 +85,7 @@ export default class RecipeSearch extends Component {
 
         <ScrollView>
           {listView}
-          <View style={styles.searchWrapper}>
-            <Icon.Button
-              name="ios-search"
-              borderRadius={15}
-              backgroundColor="#7A8491"
-              onPress={this._goToResults.bind(this)}>
-            Search
-            </Icon.Button>
-          </View>
+          {submit}
           {error}
         </ScrollView>
 
