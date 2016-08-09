@@ -84,8 +84,10 @@ export default class SearchResults extends Component {
     let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       isLoading: false,
+      isLoadingAdditional: false,
       hasError: false,
       errorMessage: null,
+      recipes: [],
       dataSource: ds,
       page: 1
     }
@@ -98,18 +100,16 @@ export default class SearchResults extends Component {
       (<ActivityIndicator style={styles.loading} size="small" />) :
       (<View/>);
 
-    let errorMessage = (this.state.hasError)?
-      (<Text style={styles.errorMessage}>{this.state.errorMessage}</Text>) :
-      (<View/>);
-
     return (
         <View style={styles.container}>
-        {errorMessage}
         {spinner}
         <ListView
           dataSource = {this.state.dataSource}
           renderRow={this._renderRow.bind(this)}
           renderSeparator={this._renderSeperator.bind(this)}
+          renderFooter={this._renderFooter.bind(this)}
+          onEndReachedThreshold={100}
+          onEndReached={this._onEndReached.bind(this)}
           enableEmptySections={true}
           contentContainerStyle={styles.listView}
         />
@@ -135,6 +135,26 @@ export default class SearchResults extends Component {
       />
     );
   }
+  _renderFooter() {
+    let errorMessage = (this.state.hasError)?
+      (<Text style={styles.errorMessage}>{this.state.errorMessage}</Text>) :
+      (<View/>);
+
+    let spinner = (this.state.isLoadingAdditional)?
+      (<ActivityIndicator style={styles.loading} size="small" />) :
+      (<View/>);
+
+    return (
+      <View>
+        {errorMessage}
+        {spinner}
+      </View>
+    );
+  }
+  _onEndReached() {
+    this._getAdditionalRecipesFromDBAsync(2);
+    console.log('*')
+  }
   _goToRecipie(recipie) {
     this.props.navigator.push({
       name: 'Recipie',
@@ -148,7 +168,6 @@ export default class SearchResults extends Component {
     this.setState({isLoading: true});
     try{
       let query = getFood2ForkQuery(this.props.ingredients, page);
-      console.log(query);
       const response = await fetch(query);
       const jsonData = await response.json();
 
@@ -156,13 +175,14 @@ export default class SearchResults extends Component {
         this.setState({
           isLoading: false,
           hasError: true,
-          errorMessage: 'No recipies found!',
+          errorMessage: 'No recipes found!',
         });
       } else {
         this.setState({
           isLoading: false,
           hasError: false,
           errorMessage: null,
+          recipes: jsonData.recipes,
           dataSource: this.state.dataSource.cloneWithRows(jsonData.recipes)
         });
       }
@@ -170,6 +190,41 @@ export default class SearchResults extends Component {
     catch(e){
       this.setState({
         isLoading: false,
+        hasError: true,
+        errorMessage: e.message,
+        dataSource: this.state.dataSource.cloneWithRows([])
+      })
+    }
+  }
+  async _getAdditionalRecipesFromDBAsync(page){
+    this.setState({isLoadingAdditional: true});
+    try{
+      let query = getFood2ForkQuery(this.props.ingredients, page);
+      const response = await fetch(query);
+      const jsonData = await response.json();
+
+      if(jsonData.recipes.length <=0) {
+        this.setState({
+          isLoadingAdditional: false,
+          hasError: true,
+          errorMessage: 'No recipes found!',
+        });
+      } else {
+        let recipes = [], newRecipes = [];
+        recipies = this.state.recipes.slice();
+        newRecipes = recipies.concat(jsonData.recipes);
+        this.setState({
+          isLoadingAdditional: false,
+          hasError: false,
+          errorMessage: null,
+          recipes: newRecipes,
+          dataSource: this.state.dataSource.cloneWithRows(newRecipes)
+        });
+      }
+    }
+    catch(e){
+      this.setState({
+        isLoadingAdditional: false,
         hasError: true,
         errorMessage: e.message,
         dataSource: this.state.dataSource.cloneWithRows([])
