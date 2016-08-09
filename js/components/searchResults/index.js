@@ -93,7 +93,7 @@ export default class SearchResults extends Component {
     }
   }
   componentDidMount() {
-    this._getRecipesFromDBAsync(this.state.page);
+    this._getRecipesFromDBAsync();
   }
   render() {
     let spinner = (this.state.isLoading)?
@@ -152,8 +152,9 @@ export default class SearchResults extends Component {
     );
   }
   _onEndReached() {
-    this._getAdditionalRecipesFromDBAsync(2);
-    console.log('*')
+    if(!this.state.hasError) {
+      this._getAdditionalRecipesFromDBAsync();
+    }
   }
   _goToRecipie(recipie) {
     this.props.navigator.push({
@@ -164,16 +165,17 @@ export default class SearchResults extends Component {
       }
     })
   }
-  async _getRecipesFromDBAsync(page){
+  async _getRecipesFromDBAsync(){
     this.setState({isLoading: true});
     try{
-      let query = getFood2ForkQuery(this.props.ingredients, page);
+      let query = getFood2ForkQuery(this.props.ingredients, this.state.page);
       const response = await fetch(query);
       const jsonData = await response.json();
 
       if(jsonData.recipes.length <=0) {
         this.setState({
           isLoading: false,
+          isLoadingAdditional: false,
           hasError: true,
           errorMessage: 'No recipes found!',
         });
@@ -190,24 +192,28 @@ export default class SearchResults extends Component {
     catch(e){
       this.setState({
         isLoading: false,
+        isLoadingAdditional: false,
         hasError: true,
         errorMessage: e.message,
         dataSource: this.state.dataSource.cloneWithRows([])
       })
     }
   }
-  async _getAdditionalRecipesFromDBAsync(page){
-    this.setState({isLoadingAdditional: true});
+  async _getAdditionalRecipesFromDBAsync(){
+    this.setState({
+      isLoadingAdditional: true,
+      page: this.state.page += 1
+    });
     try{
-      let query = getFood2ForkQuery(this.props.ingredients, page);
+      let query = getFood2ForkQuery(this.props.ingredients, this.state.page);
       const response = await fetch(query);
       const jsonData = await response.json();
 
       if(jsonData.recipes.length <=0) {
         this.setState({
+          isLoading: false,
           isLoadingAdditional: false,
-          hasError: true,
-          errorMessage: 'No recipes found!',
+          page: this.state.page -= 1
         });
       } else {
         let recipes = [], newRecipes = [];
@@ -224,10 +230,9 @@ export default class SearchResults extends Component {
     }
     catch(e){
       this.setState({
+        isLoading: false,
         isLoadingAdditional: false,
-        hasError: true,
-        errorMessage: e.message,
-        dataSource: this.state.dataSource.cloneWithRows([])
+        page: this.state.page -= 1
       })
     }
   }
