@@ -50,6 +50,10 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     backgroundColor: '#7A8491',
   },
+  footer: {
+    flex: 1,
+    marginBottom: 15
+  },
   errorMessage: {
     marginTop: 15,
     alignSelf: 'center',
@@ -95,6 +99,9 @@ export default class SearchResults extends Component {
   componentDidMount() {
     this._getRecipesFromDBAsync();
   }
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+  }
   render() {
     let spinner = (this.state.isLoading)?
       (<ActivityIndicator style={styles.loading} size="small" />) :
@@ -108,7 +115,7 @@ export default class SearchResults extends Component {
           renderRow={this._renderRow.bind(this)}
           renderSeparator={this._renderSeperator.bind(this)}
           renderFooter={this._renderFooter.bind(this)}
-          onEndReachedThreshold={100}
+          onEndReachedThreshold={1000}
           onEndReached={this._onEndReached.bind(this)}
           enableEmptySections={true}
           contentContainerStyle={styles.listView}
@@ -144,8 +151,10 @@ export default class SearchResults extends Component {
       (<ActivityIndicator style={styles.loading} size="small" />) :
       (<View/>);
 
+    let style = (this.state.hasError || this.state.isLoadingAdditional)? styles.footer : null;
+
     return (
-      <View>
+      <View style={style}>
         {errorMessage}
         {spinner}
       </View>
@@ -229,11 +238,13 @@ export default class SearchResults extends Component {
       }
     }
     catch(e){
-      this.setState({
-        isLoading: false,
-        isLoadingAdditional: false,
-        page: this.state.page -= 1
-      })
+      this.timer = setTimeout(() => {
+        this.setState({
+          isLoading: false,
+          isLoadingAdditional: false,
+          page: this.state.page -= 1
+        })
+      }, 2000);
     }
   }
 }
