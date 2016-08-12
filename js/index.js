@@ -124,10 +124,10 @@ class CollegePantryReact extends Component {
           />;
   }
   configureScene(route, routeStack){
-    if(route.type === 'modal') {
-      return Navigator.SceneConfigs.FloatFromBottom
+    if(routeMap[route.name].type === 'modal') {
+      return Navigator.SceneConfigs.FloatFromBottom;
     } else {
-      return Navigator.SceneConfigs.FloatFromRight
+      return Navigator.SceneConfigs.FloatFromRight;
     }
   }
 }

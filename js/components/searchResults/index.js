@@ -9,7 +9,7 @@ import {
   Text
 } from 'react-native';
 
-import Key from './../../../api';
+import Key from './../../api';
 
 const styles = StyleSheet.create({
   container: {
