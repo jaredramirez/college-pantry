@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   }
 })
 
-export default class Recipie extends Component {
+export default class Recipe extends Component {
   constructor(props) {
     super(props);
   }

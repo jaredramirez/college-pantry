@@ -101,7 +101,7 @@ export default class RecipeSearch extends Component {
   _goToResults() {
     if(this.props.ingredients.length > 0) {
       this.props.navigator.push({
-        name: 'SearchResults',
+        name: 'searchResults',
         passProps: {
           ingredients: this.props.ingredients
         }

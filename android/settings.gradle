@@ -1,4 +1,4 @@
-rootProject.name = 'collegePantryReact'
+rootProject.name = 'CollegePantryReact'
 
 include ':app'
 include ':react-native-vector-icons'

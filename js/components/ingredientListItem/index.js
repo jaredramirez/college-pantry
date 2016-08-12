@@ -70,12 +70,11 @@ export default class IngredientListItem extends Component {
     newIngredients = this.props.ingredients.slice();
     newIngredients.splice(this.props.index, 1);
     this.props.onChange(newIngredients);
-    this.props.navigator.replace({ name: 'SearchRecipe', type: 'page' })
+    this.props.navigator.replace({ name: 'searchRecipe'})
   }
   _modifyIngredient() {
     this.props.navigator.push({
-      name: 'AddIngrdient',
-      type: 'modal',
+      name: 'addIngrdient',
       passProps: {
         ingredientIndex: this.props.index,
         ingredientName: this.state.ingredient.name,

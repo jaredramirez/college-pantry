@@ -8,6 +8,8 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+import SearchRecipe from './../searchRecipe/index';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -115,13 +117,13 @@ export default class AddIngrdient extends Component {
     newIngredients = this.props.ingredients.slice();
     newIngredients.push({name: this.state.name});
     this.props.onChange(newIngredients);
-    this.props.navigator.replacePreviousAndPop({ name: 'SearchRecipe', type: 'page' });
+    this.props.navigator.replacePreviousAndPop({name: 'searchRecipe'});
   }
   _updateIngrdient() {
     let newIngredients = [];
     newIngredients = this.props.ingredients.slice();
     newIngredients[this.props.ingredientIndex].name = this.state.name;
     this.props.onChange(newIngredients);
-    this.props.navigator.replacePreviousAndPop({ name: 'SearchRecipe', type: 'page' });
+    this.props.navigator.replacePreviousAndPop({name: 'searchRecipe'});
   }
 }
