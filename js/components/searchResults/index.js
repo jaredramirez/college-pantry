@@ -9,8 +9,9 @@ import {
   Text
 } from 'react-native';
 
+import Browser from 'react-native-browser';
+
 import Food2ForkService from './../../services/food2forkService';
-console.log(Food2ForkService.toString());
 
 const styles = StyleSheet.create({
   container: {
@@ -155,13 +156,11 @@ export default class SearchResults extends Component {
     }
   }
   _goToRecipie(recipe) {
-    this.props.navigator.push({
-      name: 'recipe',
-      recipeTitle: recipe.title,
-      passProps: {
-        recipe: recipe
-      }
-    })
+    Browser.open(recipe.source_url, {
+      showUrlWhileLoading: false,
+      showActionButton: false,
+      hideWebViewBoundaries: true,
+    });
   }
   async _getRecipesFromDBAsync(){
     try {

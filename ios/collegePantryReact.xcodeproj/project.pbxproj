@@ -27,6 +27,7 @@
 		65FFA1211DF048C1B7513324 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE0C4785773A46D9846340D5 /* EvilIcons.ttf */; };
 		7C158E7BA585421A9C5B0CBD /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 710915D3136846799363C17B /* Entypo.ttf */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		8B11695E1D61084900E2A0D2 /* libRCTBrowser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B1169511D61076C00E2A0D2 /* libRCTBrowser.a */; };
 		8EECCA3520B248FFA8FFB804 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D8AC5F277A374B1D8E8B6E61 /* Zocial.ttf */; };
 		9E16E388125D4E02A20C86E7 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 008DC4B1E4DA42F699B06A91 /* FontAwesome.ttf */; };
 		DA307FEB4A9A4F55A55AC1A6 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BEC49630E9834A5E8D4D1A17 /* MaterialIcons.ttf */; };
@@ -112,6 +113,20 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		8B1169501D61076C00E2A0D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8B11694A1D61076C00E2A0D2 /* RCTBrowser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2791E7EA1BB3C10A00FD32EA;
+			remoteInfo = RCTBrowser;
+		};
+		8B1169521D61076C00E2A0D2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8B11694A1D61076C00E2A0D2 /* RCTBrowser.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2791E7F51BB3C10A00FD32EA;
+			remoteInfo = RCTBrowserTests;
+		};
 		8BDE86F21D467CAE00304AEC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 48E80DE8D09442809D4A42A3 /* RNVectorIcons.xcodeproj */;
@@ -148,6 +163,7 @@
 		710915D3136846799363C17B /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		8B11694A1D61076C00E2A0D2 /* RCTBrowser.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBrowser.xcodeproj; path = "../node_modules/react-native-browser/RCTBrowser.xcodeproj"; sourceTree = "<group>"; };
 		95BCD1DAF96B4639A60B7839 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		BEC49630E9834A5E8D4D1A17 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		D2B0924ACF8A475C97E35D50 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
@@ -168,6 +184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B11695E1D61084900E2A0D2 /* libRCTBrowser.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -291,6 +308,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8B11694A1D61076C00E2A0D2 /* RCTBrowser.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
@@ -332,6 +350,15 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* collegePantryReact.app */,
 				00E356EE1AD99517003FC87E /* collegePantryReactTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8B11694B1D61076C00E2A0D2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8B1169511D61076C00E2A0D2 /* libRCTBrowser.a */,
+				8B1169531D61076C00E2A0D2 /* RCTBrowserTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -428,6 +455,10 @@
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
+				},
+				{
+					ProductGroup = 8B11694B1D61076C00E2A0D2 /* Products */;
+					ProjectRef = 8B11694A1D61076C00E2A0D2 /* RCTBrowser.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -547,6 +578,20 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8B1169511D61076C00E2A0D2 /* libRCTBrowser.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTBrowser.a;
+			remoteRef = 8B1169501D61076C00E2A0D2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8B1169531D61076C00E2A0D2 /* RCTBrowserTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RCTBrowserTests.xctest;
+			remoteRef = 8B1169521D61076C00E2A0D2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		8BDE86F31D467CAE00304AEC /* libRNVectorIcons.a */ = {

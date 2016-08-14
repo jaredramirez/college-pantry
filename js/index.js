@@ -10,13 +10,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import SearchRecipe from './components/searchRecipe/index';
 import AddIngrdient from './components/addIngrdient/index';
 import SearchResults from './components/searchResults/index';
-import Recipe from './components/recipe/index';
 
 const routeMap = {
   searchRecipe: { component: SearchRecipe, type: 'page'},
   addIngrdient: { component: AddIngrdient, type: 'modal'},
   searchResults: { component: SearchResults, type: 'page'},
-  recipe: { component: Recipe, type: 'page'},
 }
 
 const styles = StyleSheet.create({
@@ -79,12 +77,7 @@ const NavigationBarRouteMapper = {
     }
   },
   Title(route, navigator, index, navState) {
-    let name;
-    if(route.recipeTitle) {
-      name = route.recipeTitle;
-    } else {
-      name = routeMap[route.name].component.name.replace(/([A-Z])/g, ' $1').trim();
-    }
+    let name = routeMap[route.name].component.name.replace(/([A-Z])/g, ' $1').trim();
     return <Text style={styles.title}>{name}</Text>
   }
 };
@@ -93,7 +86,7 @@ class CollegePantryReact extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ingredients: [{name: 'tomato'}]
+      ingredients: []
     }
   }
   onIngedientChange = (ingredients) => {
