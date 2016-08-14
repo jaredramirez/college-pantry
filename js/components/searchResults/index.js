@@ -9,9 +9,8 @@ import {
   Text
 } from 'react-native';
 
-import Food2ForkService from './../../services/food2forkService'
-
-const service = new Food2ForkService();
+import Food2ForkService from './../../services/food2forkService';
+console.log(Food2ForkService.toString());
 
 const styles = StyleSheet.create({
   container: {
@@ -151,7 +150,6 @@ export default class SearchResults extends Component {
     );
   }
   _onEndReached() {
-    console.log('endreached');
     if(!this.state.hasError) {
       this._getAdditionalRecipesFromDBAsync();
     }
@@ -168,7 +166,7 @@ export default class SearchResults extends Component {
   async _getRecipesFromDBAsync(){
     try {
       this.setState({ isLoading: true });
-      let results = await service.getRecipesFromDBAsync(this.props.ingredients, this.state.page);
+      let results = await Food2ForkService.getRecipesFromDBAsync(this.props.ingredients, this.state.page);
       if(results <=0) {
         this.setState({
           isLoading: false,
@@ -201,7 +199,7 @@ export default class SearchResults extends Component {
         isLoadingAdditional: true,
         page: this.state.page += 1
       });
-      let results = await service.getRecipesFromDBAsync(this.props.ingredients, this.state.page);
+      let results = await Food2ForkService.getRecipesFromDBAsync(this.props.ingredients, this.state.page);
       if(results <=0) {
         this.setState({
           isLoadingAdditional: false,

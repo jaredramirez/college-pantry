@@ -12,50 +12,16 @@ getFood2ForkQuery = (ingredients, page) => {
   return query;
 }
 
-export default class Food2ForkService {
+class Food2ForkService {
   async getRecipesFromDBAsync(ingredients, page){
     let query = getFood2ForkQuery(ingredients, page);
     const response = await fetch(query);
     const jsonData = await response.json();
     return jsonData.recipes;
   }
-  async _getAdditionalRecipesFromDBAsync(){
-    this.setState({
-      isLoadingAdditional: true,
-      page: this.state.page += 1
-    });
-    try{
-      let query = getFood2ForkQuery(this.props.ingredients, this.state.page);
-      const response = await fetch(query);
-      const jsonData = await response.json();
-
-      if(jsonData.recipes.length <=0) {
-        this.setState({
-          isLoading: false,
-          isLoadingAdditional: false,
-          page: this.state.page -= 1
-        });
-      } else {
-        let recipes = [], newRecipes = [];
-        recipies = this.state.recipes.slice();
-        newRecipes = recipies.concat(jsonData.recipes);
-        this.setState({
-          isLoadingAdditional: false,
-          hasError: false,
-          errorMessage: null,
-          recipes: newRecipes,
-          dataSource: this.state.dataSource.cloneWithRows(newRecipes)
-        });
-      }
-    }
-    catch(e){
-      this.timer = setTimeout(() => {
-        this.setState({
-          isLoading: false,
-          isLoadingAdditional: false,
-          page: this.state.page -= 1
-        })
-      }, 2000);
-    }
-  }
 }
+
+const instance = new Food2ForkService();
+Object.freeze(instance);
+
+export default instance;
