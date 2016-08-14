@@ -151,6 +151,7 @@ export default class SearchResults extends Component {
     );
   }
   _onEndReached() {
+    console.log('endreached');
     if(!this.state.hasError) {
       this._getAdditionalRecipesFromDBAsync();
     }
@@ -193,85 +194,38 @@ export default class SearchResults extends Component {
         dataSource: this.state.dataSource.cloneWithRows([])
       });
     }
-
   }
   async _getAdditionalRecipesFromDBAsync(){
-
-  }
-}
-
-/*
-async _getRecipesFromDBAsync(){
-  this.setState({isLoading: true});
-  try{
-    let query = getFood2ForkQuery(this.props.ingredients, this.state.page);
-    const response = await fetch(query);
-    const jsonData = await response.json();
-
-    if(jsonData.recipes.length <=0) {
+    try {
       this.setState({
-        isLoading: false,
-        isLoadingAdditional: false,
-        hasError: true,
-        errorMessage: 'No recipes found!',
+        isLoadingAdditional: true,
+        page: this.state.page += 1
       });
-    } else {
-      this.setState({
-        isLoading: false,
-        hasError: false,
-        errorMessage: null,
-        recipes: jsonData.recipes,
-        dataSource: this.state.dataSource.cloneWithRows(jsonData.recipes)
-      });
+      let results = await service.getRecipesFromDBAsync(this.props.ingredients, this.state.page);
+      if(results <=0) {
+        this.setState({
+          isLoadingAdditional: false,
+          page: this.state.page -= 1
+        });
+      } else {
+        let recipes = [], newRecipes = [];
+        recipies = this.state.recipes.slice();
+        newRecipes = recipies.concat(results);
+        this.setState({
+          isLoadingAdditional: false,
+          hasError: false,
+          errorMessage: null,
+          recipes: newRecipes,
+          dataSource: this.state.dataSource.cloneWithRows(newRecipes)
+        });
+      }
+    } catch (e) {
+      this.timer = setTimeout(() => {
+        this.setState({
+          isLoadingAdditional: false,
+          page: this.state.page -= 1
+        })
+      }, 2000);
     }
   }
-  catch(e){
-    this.setState({
-      isLoading: false,
-      isLoadingAdditional: false,
-      hasError: true,
-      errorMessage: e.message,
-      dataSource: this.state.dataSource.cloneWithRows([])
-    })
-  }
 }
-async _getAdditionalRecipesFromDBAsync(){
-  this.setState({
-    isLoadingAdditional: true,
-    page: this.state.page += 1
-  });
-  try{
-    let query = getFood2ForkQuery(this.props.ingredients, this.state.page);
-    const response = await fetch(query);
-    const jsonData = await response.json();
-
-    if(jsonData.recipes.length <=0) {
-      this.setState({
-        isLoading: false,
-        isLoadingAdditional: false,
-        page: this.state.page -= 1
-      });
-    } else {
-      let recipes = [], newRecipes = [];
-      recipies = this.state.recipes.slice();
-      newRecipes = recipies.concat(jsonData.recipes);
-      this.setState({
-        isLoadingAdditional: false,
-        hasError: false,
-        errorMessage: null,
-        recipes: newRecipes,
-        dataSource: this.state.dataSource.cloneWithRows(newRecipes)
-      });
-    }
-  }
-  catch(e){
-    this.timer = setTimeout(() => {
-      this.setState({
-        isLoading: false,
-        isLoadingAdditional: false,
-        page: this.state.page -= 1
-      })
-    }, 2000);
-  }
-}
-*/
