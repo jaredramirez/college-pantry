@@ -25,7 +25,7 @@ export default class Recipe extends Component {
     return (
       <View style={styles.container}>
         <WebView
-          source={{uri: this.props.recipie.source_url}}
+          source={{uri: this.props.recipe.source_url}}
           startInLoadingState={true}
           renderLoading={() => {return (<ActivityIndicator style={styles.loading} size="small" />)}}
         />
