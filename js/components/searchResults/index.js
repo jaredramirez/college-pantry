@@ -47,6 +47,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     flexWrap: 'wrap',
   },
+  subtext: {
+    fontSize: 9,
+    textAlign: 'center',
+    flexWrap: 'wrap',
+  },
   separator: {
     height: 1,
     alignSelf: 'stretch',
@@ -119,7 +124,8 @@ export default class SearchResults extends Component {
       <TouchableOpacity style={styles.rowContainer} onPress={this._goToRecipie.bind(this, rowData)}>
         <Image style={styles.thumb} source={{uri: rowData.image_url}} />
         <View style={styles.textWrapper}>
-          <Text style={styles.text} numberOfLines={5}> {cleanTitle} </Text>
+          <Text style={styles.text} numberOfLines={2}> {cleanTitle} </Text>
+          <Text style={styles.subtext} numberOfLines={3}> from {rowData.publisher} </Text>
         </View>
       </TouchableOpacity>
     )
